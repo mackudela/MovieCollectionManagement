@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,6 +23,16 @@ public class User extends BaseEntity {
     @NotNull
     private String email;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-    private Long roleId;
+    @OneToMany(mappedBy = "user")
+    private List<Topic> topics;
+
+    @OneToMany(mappedBy = "user")
+    private List<Answer> answers;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Movie> movies;
 }

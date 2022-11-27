@@ -8,7 +8,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.moviecollectionmanagement.entities.User;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends CrudRepository<User, Long>, PagingAndSortingRepository<User,Long> {
     void deleteUserById(Long id);
+    List<User> findAll();
 }

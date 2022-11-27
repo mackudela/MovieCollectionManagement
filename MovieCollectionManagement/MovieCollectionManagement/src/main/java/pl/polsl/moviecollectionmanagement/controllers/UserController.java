@@ -20,7 +20,8 @@ public class UserController {
 
     @GetMapping("/all")
     public ResponseEntity<Page<UserDto>> findAllUsers(@PageableDefault Pageable pageable) {
-        Page<UserDto> users = userService.findAll(pageable);
+        Pageable wholePage = Pageable.unpaged();
+        Page<UserDto> users = userService.findAll(wholePage);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 

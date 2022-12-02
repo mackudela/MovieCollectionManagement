@@ -5,5 +5,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface Review extends CrudRepository<Review, Long>, PagingAndSortingRepository<Review, Long> {
+public interface CastRoleRepository extends CrudRepository<CastRoleRepository, Long>, PagingAndSortingRepository<CastRoleRepository, Long> {
 }

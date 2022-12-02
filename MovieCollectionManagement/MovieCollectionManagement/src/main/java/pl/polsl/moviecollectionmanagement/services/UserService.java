@@ -1,28 +1,52 @@
 package pl.polsl.moviecollectionmanagement.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.moviecollectionmanagement.dtos.UserDto;
+import pl.polsl.moviecollectionmanagement.entities.Role;
 import pl.polsl.moviecollectionmanagement.entities.User;
 import pl.polsl.moviecollectionmanagement.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class UserService {
+@RequiredArgsConstructor
+@Slf4j
+public class UserService implements UserDetailsService {
     private final UserRepository userRepo;
 
-    @Autowired
-    public UserService(UserRepository userRepo){
-        this.userRepo = userRepo;
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user = userRepo.findUserByUsername(login);
+        if(user == null) {
+            log.error("User not found in the database");
+            throw new UsernameNotFoundException("User not found in the database");
+        } else {
+            log.info("User found in the database: {}", login);
+        }
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
     }
+
+//    @Autowired
+//    public UserService(UserRepository userRepo){
+//        this.userRepo = userRepo;
+//    }
 
     public Page<UserDto> findAll(Pageable pageable) {
         final Page<User> users = userRepo.findAll(pageable);

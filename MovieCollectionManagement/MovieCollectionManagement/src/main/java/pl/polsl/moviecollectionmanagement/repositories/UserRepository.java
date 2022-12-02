@@ -15,4 +15,6 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long>, PagingAndSortingRepository<User,Long> {
     void deleteUserById(Long id);
     List<User> findAll();
+
+    User findUserByUsername(String username);
 }

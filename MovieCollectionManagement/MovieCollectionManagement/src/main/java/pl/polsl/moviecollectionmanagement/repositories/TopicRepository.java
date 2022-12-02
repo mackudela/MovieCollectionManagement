@@ -5,5 +5,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface Movie extends CrudRepository<Movie, Long>, PagingAndSortingRepository<Movie, Long> {
+public interface TopicRepository extends CrudRepository<TopicRepository, Long>, PagingAndSortingRepository<TopicRepository, Long> {
 }

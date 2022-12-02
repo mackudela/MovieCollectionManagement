@@ -16,5 +16,5 @@ public interface UserRepository extends CrudRepository<User, Long>, PagingAndSor
     void deleteUserById(Long id);
     List<User> findAll();
 
-    User findUserByUsername(String username);
+    User findUserByLogin(String login);
 }

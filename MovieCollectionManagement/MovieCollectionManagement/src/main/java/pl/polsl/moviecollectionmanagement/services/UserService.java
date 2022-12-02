@@ -2,25 +2,22 @@ package pl.polsl.moviecollectionmanagement.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.moviecollectionmanagement.dtos.UserDto;
-import pl.polsl.moviecollectionmanagement.entities.Role;
 import pl.polsl.moviecollectionmanagement.entities.User;
 import pl.polsl.moviecollectionmanagement.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,9 +26,11 @@ import java.util.List;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepo;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userRepo.findUserByUsername(login);
+        User user = userRepo.findUserByLogin(login);
         if(user == null) {
             log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");
@@ -60,6 +59,10 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " does not exist"));
     }
 
+    public User findByLogin(String login) {
+        return userRepo.findUserByLogin(login);
+    }
+
     public UserDto getDto(Long id) {
         final User user = findById(id);
         return new UserDto(user);
@@ -69,7 +72,7 @@ public class UserService implements UserDetailsService {
     public User create(UserDto userDto) {
         final User user = new User();
         user.setLogin(userDto.getLogin());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
         return userRepo.save(user);
     }

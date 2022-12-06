@@ -34,6 +34,8 @@ public class Movie extends BaseEntity {
     @Column(name = "poster_url")
     private String posterUrl;
 
+    private Float rating;
+
     @OneToMany(mappedBy = "movie")
     private List<Review> reviews;
 

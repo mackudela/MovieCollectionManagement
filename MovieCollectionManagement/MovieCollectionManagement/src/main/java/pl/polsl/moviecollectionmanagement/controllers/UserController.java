@@ -50,8 +50,8 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Long> addUser(@RequestBody UserDto userDto) {
+    @PostMapping("/create")
+    public ResponseEntity<Long> createUser(@RequestBody UserDto userDto) {
         return new ResponseEntity<>(userService.create(userDto).getId(), HttpStatus.CREATED);
     }
 

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.polsl.moviecollectionmanagement.entities.CastMember;
+import pl.polsl.moviecollectionmanagement.entities.Movie;
 import pl.polsl.moviecollectionmanagement.entities.Review;
 import pl.polsl.moviecollectionmanagement.entities.User;
 
@@ -20,6 +21,8 @@ public class MovieDto {
 
     private String title;
 
+    private Integer boxOffice;
+
     private Integer budget;
 
     private Integer seasonNumber;
@@ -30,6 +33,8 @@ public class MovieDto {
 
     private Boolean isMovie;
 
+    private String posterUrl;
+
     private Float rating;
 
     private List<Review> reviews;
@@ -37,4 +42,20 @@ public class MovieDto {
     private List<User> users;
 
     private List<CastMember> castMembers;
+
+    public MovieDto(Movie movie){
+        this.id = movie.getId();
+        this.title = movie.getTitle();
+        this.boxOffice = movie.getBoxOffice();
+        this.budget = movie.getBudget();
+        this.seasonNumber = movie.getSeasonNumber();
+        this.numberOfEpisodes = movie.getNumberOfEpisodes();
+        this.genre = movie.getGenre();
+        this.isMovie = movie.getIsMovie();
+        this.posterUrl = movie.getPosterUrl();
+        this.rating = movie.getRating();
+        this.reviews = movie.getReviews();
+        this.users = movie.getUsers();
+        this.castMembers = movie.getCastMembers();
+    }
 }

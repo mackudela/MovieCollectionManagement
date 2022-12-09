@@ -2,68 +2,73 @@ package pl.polsl.moviecollectionmanagement.filters;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import com.google.gson.Gson;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.polsl.moviecollectionmanagement.authentication.JwtResponse;
+import pl.polsl.moviecollectionmanagement.configuration.SecurityUserPrincipal;
+import pl.polsl.moviecollectionmanagement.entities.Role;
+
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static pl.polsl.moviecollectionmanagement.configuration.SecurityConstants.EXPIRATION_TIME;
+import static pl.polsl.moviecollectionmanagement.configuration.SecurityConstants.SECRET;
 
 @Slf4j
-@RequiredArgsConstructor
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private final AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
+
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager){
+        this.authenticationManager = authenticationManager;
+    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        log.info("Login is: {}" + login);
-        log.info("Password is: {}" + password);
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(login, password);
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(login,password);
         return authenticationManager.authenticate(authenticationToken);
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-        User user = (User) authentication.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
-        String accessToken = JWT.create()
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
+
+        SecurityUserPrincipal user = (SecurityUserPrincipal) authentication.getPrincipal();
+        Set<Role> rolesSet = user.getUser().getRoles();
+
+        String roles = String.valueOf(user.getAuthorities()
+                .stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet()));
+        roles = roles.replaceAll("\\s+","");
+
+        Algorithm algorithm = Algorithm.HMAC256(SECRET.getBytes());
+        String token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) //10 minutes
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .withIssuer(request.getRequestURL().toString())
-                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .withClaim("roles", roles)
                 .sign(algorithm);
 
-        String refreshToken = JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000)) //30 minutes
-                .withIssuer(request.getRequestURL().toString())
-                .sign(algorithm);
+        JwtResponse jwtResponse = new JwtResponse();
+        jwtResponse.setId(user.getUser().getId());
+        jwtResponse.setRoles(rolesSet.stream().map(role->role.getName().name()).collect(Collectors.toSet()));
+        jwtResponse.setToken(token);
 
-//        response.setHeader("accessToken", accessToken);
-//        response.setHeader("refreshToken", refreshToken);
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put("accessToken", accessToken);
-        tokens.put("refreshToken", refreshToken);
-        response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        String jsonString = new Gson().toJson(jwtResponse);
+        response.getWriter().write(jsonString);
+        response.getWriter().flush();
     }
 }

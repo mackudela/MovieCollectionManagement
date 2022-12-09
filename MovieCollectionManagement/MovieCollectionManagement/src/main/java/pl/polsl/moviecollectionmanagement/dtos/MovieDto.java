@@ -21,6 +21,9 @@ public class MovieDto {
 
     private String title;
 
+
+    private String description;
+
     private Integer boxOffice;
 
     private Integer budget;
@@ -46,6 +49,7 @@ public class MovieDto {
     public MovieDto(Movie movie){
         this.id = movie.getId();
         this.title = movie.getTitle();
+        this.description = movie.getDescription();
         this.boxOffice = movie.getBoxOffice();
         this.budget = movie.getBudget();
         this.seasonNumber = movie.getSeasonNumber();

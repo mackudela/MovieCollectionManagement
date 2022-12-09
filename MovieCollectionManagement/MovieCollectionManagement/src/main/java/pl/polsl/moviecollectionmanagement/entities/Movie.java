@@ -15,6 +15,8 @@ public class Movie extends BaseEntity {
     @NotNull
     private String title;
 
+    private String description;
+
     @Column(name = "box_office")
     private Integer boxOffice;
 

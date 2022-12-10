@@ -10,6 +10,7 @@ import pl.polsl.moviecollectionmanagement.entities.Review;
 import pl.polsl.moviecollectionmanagement.entities.User;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -37,9 +38,9 @@ public class MovieDto {
 
     private Float rating;
 
-    private List<Review> reviews;
+    private Set<Review> reviews;
 
-    private List<CastMember> castMembers;
+    private Set<CastMember> castMembers;
 
     public MovieDto(Movie movie){
         this.id = movie.getId();

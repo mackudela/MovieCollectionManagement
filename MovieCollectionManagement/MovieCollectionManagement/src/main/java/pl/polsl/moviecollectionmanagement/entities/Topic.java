@@ -9,7 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,5 +29,5 @@ public class Topic extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "topic")
-    private List<Answer> answers;
+    private Set<Answer> answers = new LinkedHashSet<>();
 }

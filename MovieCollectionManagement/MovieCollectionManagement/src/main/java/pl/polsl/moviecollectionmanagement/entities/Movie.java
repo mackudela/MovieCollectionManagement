@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -37,11 +38,11 @@ public class Movie extends BaseEntity {
     private Float rating;
 
     @OneToMany(mappedBy = "movie")
-    private List<Review> reviews;
+    private Set<Review> reviews = new LinkedHashSet<>();
 
     @ManyToMany(mappedBy = "movies")
-    private List<CastMember> castMembers;
+    private Set<CastMember> castMembers = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "movie")
-    private List<FavouriteMovie> favouriteMovies;
+    private Set<FavouriteMovie> favouriteMovies = new LinkedHashSet<>();
 }

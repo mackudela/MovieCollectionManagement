@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,7 +30,7 @@ public class CastMember extends BaseEntity{
     @JoinTable(name = "movies_cast_members",
             joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "cast_member_id", referencedColumnName = "id"))
-    private List<Movie> movies;
+    private Set<Movie> movies = new LinkedHashSet<>();
 
 //    @ManyToMany(mappedBy = "castMembers")
 //    private List<CastRole> castRoles;

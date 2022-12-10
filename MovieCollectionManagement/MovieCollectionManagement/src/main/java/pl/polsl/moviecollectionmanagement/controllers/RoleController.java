@@ -9,7 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.moviecollectionmanagement.dtos.UserDto;
 import pl.polsl.moviecollectionmanagement.entities.Permission;
+import pl.polsl.moviecollectionmanagement.entities.Role;
+import pl.polsl.moviecollectionmanagement.enums.PermissionName;
+import pl.polsl.moviecollectionmanagement.enums.RoleName;
 import pl.polsl.moviecollectionmanagement.services.PermissionService;
+import pl.polsl.moviecollectionmanagement.services.RoleService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -17,6 +24,7 @@ import pl.polsl.moviecollectionmanagement.services.PermissionService;
 public class RoleController {
 
     private final PermissionService permissionService;
+    private final RoleService roleService;
 
     @GetMapping("/permissions/all")
     public ResponseEntity<Page<Permission>> findAllPermissions(@PageableDefault Pageable pageable) {
@@ -26,7 +34,145 @@ public class RoleController {
     }
 
     @PostMapping("/permissions/create")
-    public ResponseEntity<Long> createPermission(@RequestBody Permission permission) {
-        return new ResponseEntity<>(permissionService.create(permission).getId(), HttpStatus.CREATED);
+    public void createPermission(/*@RequestBody Permission permission*/) {
+        Permission permission1 = new Permission();
+        permission1.setName(PermissionName.CREATE_USER);
+        //Set<Role> roles1 = new HashSet<>();
+
+        Permission permission2 = new Permission();
+        permission2.setName(PermissionName.FIND_USER);
+        //Set<Role> roles2 = new HashSet<>();
+
+        Permission permission3 = new Permission();
+        permission3.setName(PermissionName.UPDATE_USER);
+        //Set<Role> roles3 = new HashSet<>();
+
+        Permission permission4 = new Permission();
+        permission4.setName(PermissionName.DELETE_USER);
+        //Set<Role> roles4 = new HashSet<>();
+
+        Permission permission5 = new Permission();
+        permission5.setName(PermissionName.CREATE_MOVIE);
+        //Set<Role> roles5 = new HashSet<>();
+
+        Permission permission6 = new Permission();
+        permission6.setName(PermissionName.FIND_MOVIE);
+        //Set<Role> roles6 = new HashSet<>();
+
+        Permission permission7 = new Permission();
+        permission7.setName(PermissionName.UPDATE_MOVIE);
+        //Set<Role> roles7 = new HashSet<>();
+
+        Permission permission8 = new Permission();
+        permission8.setName(PermissionName.DELETE_MOVIE);
+        //Set<Role> roles8 = new HashSet<>();
+
+        Permission permission9 = new Permission();
+        permission9.setName(PermissionName.CREATE_REVIEW);
+        //Set<Role> roles9 = new HashSet<>();
+
+        Permission permission10 = new Permission();
+        permission10.setName(PermissionName.FIND_REVIEW);
+        //Set<Role> roles10 = new HashSet<>();
+
+        Permission permission11 = new Permission();
+        permission11.setName(PermissionName.UPDATE_REVIEW);
+        //Set<Role> roles11 = new HashSet<>();
+
+        Permission permission12 = new Permission();
+        permission12.setName(PermissionName.DELETE_REVIEW);
+        //Set<Role> roles12 = new HashSet<>();
+
+        Permission permission13 = new Permission();
+        permission13.setName(PermissionName.CREATE_FORUMPOST);
+        //Set<Role> roles13 = new HashSet<>();
+
+        Permission permission14 = new Permission();
+        permission14.setName(PermissionName.FIND_FORUMPOST);
+        //Set<Role> roles14 = new HashSet<>();
+
+        Permission permission15 = new Permission();
+        permission15.setName(PermissionName.UPDATE_FORUMPOST);
+        //Set<Role> roles15 = new HashSet<>();
+
+        Permission permission16 = new Permission();
+        permission16.setName(PermissionName.DELETE_FORUMPOST);
+        //Set<Role> roles16 = new HashSet<>();
+
+
+        Role role1 = new Role();
+        role1.setName(RoleName.USER);
+        //Set<Permission> permissions1 = role1.getPermissions();
+        role1.getPermissions().add(permission6);
+        permission6.getRoles().add(role1);
+        role1.getPermissions().add(permission9);
+        permission9.getRoles().add(role1);
+        role1.getPermissions().add(permission10);
+        permission10.getRoles().add(role1);
+        role1.getPermissions().add(permission11);
+        permission11.getRoles().add(role1);
+        role1.getPermissions().add(permission13);
+        permission13.getRoles().add(role1);
+        role1.getPermissions().add(permission14);
+        permission14.getRoles().add(role1);
+        role1.getPermissions().add(permission15);
+        permission15.getRoles().add(role1);
+
+
+        Role role2 = new Role();
+        role2.setName(RoleName.ADMIN);
+        //Set<Permission> permissions2 = role2.getPermissions();
+        role2.getPermissions().add(permission1);
+        permission1.getRoles().add(role2);
+        role2.getPermissions().add(permission2);
+        permission2.getRoles().add(role2);
+        role2.getPermissions().add(permission3);
+        permission3.getRoles().add(role2);
+        role2.getPermissions().add(permission4);
+        permission4.getRoles().add(role2);
+        role2.getPermissions().add(permission5);
+        permission5.getRoles().add(role2);
+        role2.getPermissions().add(permission6);
+        permission6.getRoles().add(role2);
+        role2.getPermissions().add(permission7);
+        permission7.getRoles().add(role2);
+        role2.getPermissions().add(permission8);
+        permission8.getRoles().add(role2);
+        role2.getPermissions().add(permission9);
+        permission9.getRoles().add(role2);
+        role2.getPermissions().add(permission10);
+        permission10.getRoles().add(role2);
+        role2.getPermissions().add(permission11);
+        permission11.getRoles().add(role2);
+        role2.getPermissions().add(permission12);
+        permission12.getRoles().add(role2);
+        role2.getPermissions().add(permission13);
+        permission13.getRoles().add(role2);
+        role2.getPermissions().add(permission14);
+        permission14.getRoles().add(role2);
+        role2.getPermissions().add(permission15);
+        permission15.getRoles().add(role2);
+        role2.getPermissions().add(permission16);
+        permission16.getRoles().add(role2);
+
+        permissionService.create(permission1);
+        permissionService.create(permission2);
+        permissionService.create(permission3);
+        permissionService.create(permission4);
+        permissionService.create(permission5);
+        permissionService.create(permission6);
+        permissionService.create(permission7);
+        permissionService.create(permission8);
+        permissionService.create(permission9);
+        permissionService.create(permission10);
+        permissionService.create(permission11);
+        permissionService.create(permission12);
+        permissionService.create(permission13);
+        permissionService.create(permission14);
+        permissionService.create(permission15);
+        permissionService.create(permission16);
+
+        roleService.create(role1);
+        roleService.create(role2);
     }
 }

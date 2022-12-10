@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,17 +27,17 @@ public class User extends BaseEntity {
     private String email;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "roles_users",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private Set<Role> roles;
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private List<Topic> topics;
+    private Set<Topic> topics = new LinkedHashSet<>();;
 
     @OneToMany(mappedBy = "user")
-    private List<Answer> answers;
+    private Set<Answer> answers = new LinkedHashSet<>();;
 
     @OneToMany(mappedBy = "user")
-    private List<FavouriteMovie> favouriteMovies;
+    private Set<FavouriteMovie> favouriteMovies = new LinkedHashSet<>();;
 }

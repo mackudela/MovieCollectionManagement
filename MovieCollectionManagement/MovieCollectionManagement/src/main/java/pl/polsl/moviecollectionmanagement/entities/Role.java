@@ -6,6 +6,7 @@ import lombok.Setter;
 import pl.polsl.moviecollectionmanagement.enums.RoleName;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class Role extends BaseEntity {
     private RoleName name;
 
     @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+    private Set<User> users = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "roles_permissions",

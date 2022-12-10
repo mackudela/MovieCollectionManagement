@@ -8,10 +8,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.moviecollectionmanagement.dtos.UserDto;
+import pl.polsl.moviecollectionmanagement.entities.Role;
 import pl.polsl.moviecollectionmanagement.entities.User;
+import pl.polsl.moviecollectionmanagement.enums.RoleName;
+import pl.polsl.moviecollectionmanagement.repositories.RoleRepository;
 import pl.polsl.moviecollectionmanagement.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Set;
 
 
 @Service
@@ -20,6 +24,8 @@ import javax.persistence.EntityNotFoundException;
 @Slf4j
 public class UserService {
     private final UserRepository userRepo;
+
+    private final RoleRepository roleRepository;
 
     public Page<UserDto> findAll(Pageable pageable) {
         final Page<User> users = userRepo.findAll(pageable);
@@ -47,6 +53,17 @@ public class UserService {
         user.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
 
+        Set<Role> roles = user.getRoles();
+
+        Role role = roleRepository.findByName(RoleName.USER);
+        role.getUsers().add(user);
+        roles.add(role);
+
+//        Role role2 = roleRepository.findByName(RoleName.ADMIN);
+//        role2.getUsers().add(user);
+//        roles.add(role2);
+
+        user.setRoles(roles);
         return userRepo.save(user);
     }
 

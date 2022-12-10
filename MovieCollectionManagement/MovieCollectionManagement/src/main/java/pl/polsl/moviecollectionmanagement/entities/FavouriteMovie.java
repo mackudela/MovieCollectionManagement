@@ -4,28 +4,28 @@ import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
-@Entity(name = "topics")
-public class Topic extends BaseEntity {
+@Entity(name = "favourite_movies")
+public class FavouriteMovie extends BaseEntity{
 
+    private Integer rating;
+
+    @Column(name = "is_favourite")
+    private Boolean isFavourite;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
     @NotNull
-    private String name;
-
-    private String content;
+    private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;
-
-    @OneToMany(mappedBy = "topic")
-    private List<Answer> answers;
 }

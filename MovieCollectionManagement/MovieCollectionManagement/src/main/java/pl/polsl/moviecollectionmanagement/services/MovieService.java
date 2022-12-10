@@ -41,7 +41,6 @@ public class MovieService {
         final Movie movie = new Movie();
         movie.setTitle(movieDto.getTitle());
         movie.setBoxOffice(movieDto.getBoxOffice());
-        movie.setBudget(movieDto.getBudget());
         movie.setSeasonNumber(movieDto.getSeasonNumber());
         movie.setNumberOfEpisodes(movieDto.getNumberOfEpisodes());
         movie.setGenre(movieDto.getGenre());

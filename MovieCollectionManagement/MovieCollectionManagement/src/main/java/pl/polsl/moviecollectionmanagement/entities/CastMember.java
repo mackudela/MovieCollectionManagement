@@ -20,12 +20,15 @@ public class CastMember extends BaseEntity{
     @NotNull
     private String lastName;
 
+    @Column(name = "cast_role")
+    private String castRole;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "movies_cast_members",
             joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "cast_member_id", referencedColumnName = "id"))
     private List<Movie> movies;
 
-    @ManyToMany(mappedBy = "castMembers")
-    private List<CastRole> castRoles;
+//    @ManyToMany(mappedBy = "castMembers")
+//    private List<CastRole> castRoles;
 }

@@ -20,8 +20,6 @@ public class Movie extends BaseEntity {
     @Column(name = "box_office")
     private Integer boxOffice;
 
-    private Integer budget;
-
     @Column(name = "season_number")
     private Integer seasonNumber;
 
@@ -41,12 +39,9 @@ public class Movie extends BaseEntity {
     @OneToMany(mappedBy = "movie")
     private List<Review> reviews;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "users_movies",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
-    private List<User> users;
-
     @ManyToMany(mappedBy = "movies")
     private List<CastMember> castMembers;
+
+    @OneToMany(mappedBy = "movie")
+    private List<FavouriteMovie> favouriteMovies;
 }

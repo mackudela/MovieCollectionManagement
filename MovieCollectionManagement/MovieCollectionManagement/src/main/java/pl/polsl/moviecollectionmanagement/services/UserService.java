@@ -46,6 +46,7 @@ public class UserService {
         user.setLogin(userDto.getLogin());
         user.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
+
         return userRepo.save(user);
     }
 

@@ -21,12 +21,9 @@ public class MovieDto {
 
     private String title;
 
-
     private String description;
 
     private Integer boxOffice;
-
-    private Integer budget;
 
     private Integer seasonNumber;
 
@@ -42,8 +39,6 @@ public class MovieDto {
 
     private List<Review> reviews;
 
-    private List<User> users;
-
     private List<CastMember> castMembers;
 
     public MovieDto(Movie movie){
@@ -51,7 +46,6 @@ public class MovieDto {
         this.title = movie.getTitle();
         this.description = movie.getDescription();
         this.boxOffice = movie.getBoxOffice();
-        this.budget = movie.getBudget();
         this.seasonNumber = movie.getSeasonNumber();
         this.numberOfEpisodes = movie.getNumberOfEpisodes();
         this.genre = movie.getGenre();
@@ -59,7 +53,6 @@ public class MovieDto {
         this.posterUrl = movie.getPosterUrl();
         this.rating = movie.getRating();
         this.reviews = movie.getReviews();
-        this.users = movie.getUsers();
         this.castMembers = movie.getCastMembers();
     }
 }

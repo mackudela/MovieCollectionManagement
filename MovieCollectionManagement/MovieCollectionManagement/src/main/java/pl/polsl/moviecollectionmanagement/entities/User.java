@@ -36,6 +36,6 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<Answer> answers;
 
-    @ManyToMany(mappedBy = "users")
-    private List<Movie> movies;
+    @OneToMany(mappedBy = "user")
+    private List<FavouriteMovie> favouriteMovies;
 }

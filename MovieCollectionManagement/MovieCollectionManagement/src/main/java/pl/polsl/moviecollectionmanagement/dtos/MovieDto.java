@@ -24,7 +24,7 @@ public class MovieDto {
 
     private String description;
 
-    private Integer boxOffice;
+    private Float boxOffice;
 
     private Integer seasonNumber;
 

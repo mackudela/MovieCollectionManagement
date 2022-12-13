@@ -19,7 +19,7 @@ public class Movie extends BaseEntity {
     private String description;
 
     @Column(name = "box_office")
-    private Integer boxOffice;
+    private Float boxOffice;
 
     @Column(name = "season_number")
     private Integer seasonNumber;
@@ -36,6 +36,9 @@ public class Movie extends BaseEntity {
     private String posterUrl;
 
     private Float rating;
+
+    @Column(name = "year_of_production")
+    private Integer yearOfProduction;
 
     @OneToMany(mappedBy = "movie")
     private Set<Review> reviews = new LinkedHashSet<>();

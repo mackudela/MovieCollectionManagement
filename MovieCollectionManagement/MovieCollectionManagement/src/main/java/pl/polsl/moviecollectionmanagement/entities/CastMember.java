@@ -27,9 +27,9 @@ public class CastMember extends BaseEntity{
     private String castRole;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "movies_cast_members",
-            joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "cast_member_id", referencedColumnName = "id"))
+    @JoinTable(name = "cast_members_movies",
+            joinColumns = @JoinColumn(name = "cast_member_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
     private Set<Movie> movies = new LinkedHashSet<>();
 
 //    @ManyToMany(mappedBy = "castMembers")

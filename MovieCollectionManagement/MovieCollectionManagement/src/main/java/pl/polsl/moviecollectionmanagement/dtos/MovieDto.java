@@ -30,6 +30,8 @@ public class MovieDto {
 
     private Integer numberOfEpisodes;
 
+    private Integer yearOfProduction;
+
     private String genre;
 
     private Boolean isMovie;
@@ -49,11 +51,12 @@ public class MovieDto {
         this.boxOffice = movie.getBoxOffice();
         this.seasonNumber = movie.getSeasonNumber();
         this.numberOfEpisodes = movie.getNumberOfEpisodes();
+        this.yearOfProduction = movie.getYearOfProduction();
         this.genre = movie.getGenre();
         this.isMovie = movie.getIsMovie();
         this.posterUrl = movie.getPosterUrl();
         this.rating = movie.getRating();
         this.reviews = movie.getReviews();
-        this.castMembers = movie.getCastMembers();
+        //this.castMembers = movie.getCastMembers();
     }
 }

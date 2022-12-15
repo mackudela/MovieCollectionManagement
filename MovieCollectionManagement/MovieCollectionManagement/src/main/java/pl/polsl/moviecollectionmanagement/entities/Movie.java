@@ -35,10 +35,16 @@ public class Movie extends BaseEntity {
     @Column(name = "poster_url")
     private String posterUrl;
 
+    @Column(name = "large_poster_url")
+    private String largePosterUrl;
+
     private Float rating;
 
     @Column(name = "year_of_production")
     private Integer yearOfProduction;
+
+    @Column(name = "movie_length")
+    private String movieLength;
 
     @OneToMany(mappedBy = "movie")
     private Set<Review> reviews = new LinkedHashSet<>();

@@ -38,7 +38,11 @@ public class MovieDto {
 
     private String posterUrl;
 
+    private String largePosterUrl;
+
     private Float rating;
+
+    private String movieLength;
 
     private Set<Review> reviews;
 
@@ -55,8 +59,10 @@ public class MovieDto {
         this.genre = movie.getGenre();
         this.isMovie = movie.getIsMovie();
         this.posterUrl = movie.getPosterUrl();
+        this.largePosterUrl = movie.getLargePosterUrl();
         this.rating = movie.getRating();
         this.reviews = movie.getReviews();
+        this.movieLength = movie.getMovieLength();
         //this.castMembers = movie.getCastMembers();
     }
 }

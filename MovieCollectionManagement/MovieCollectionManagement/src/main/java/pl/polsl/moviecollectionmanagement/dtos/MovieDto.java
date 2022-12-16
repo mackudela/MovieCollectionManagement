@@ -63,6 +63,6 @@ public class MovieDto {
         this.rating = movie.getRating();
         this.reviews = movie.getReviews();
         this.movieLength = movie.getMovieLength();
-        //this.castMembers = movie.getCastMembers();
+        this.castMembers = movie.getCastMembers();
     }
 }

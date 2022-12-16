@@ -1,6 +1,7 @@
 package pl.polsl.moviecollectionmanagement.entities;
 
 import com.sun.istack.NotNull;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +27,7 @@ public class CastMember extends BaseEntity{
     @Column(name = "cast_role")
     private String castRole;
 
+    @Getter(AccessLevel.PRIVATE)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "cast_members_movies",
             joinColumns = @JoinColumn(name = "cast_member_id", referencedColumnName = "id"),

@@ -32,10 +32,10 @@ public class MovieController {
         return new ResponseEntity<>(movieDto, HttpStatus.OK);
     }
 
-    @PostMapping("/create") //simplified version
-    public ResponseEntity<Long> createMovie() {
-        return new ResponseEntity<>(movieService.create().getId(), HttpStatus.CREATED);
-    }
+//    @PostMapping("/create") //simplified version
+//    public ResponseEntity<Long> createMovie() {
+//        return new ResponseEntity<>(movieService.create().getId(), HttpStatus.CREATED);
+//    }
 
 //    @PostMapping("/create")
 //    public ResponseEntity<Long> createMovie(@RequestBody MovieDto movieDto) {

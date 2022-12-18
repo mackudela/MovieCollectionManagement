@@ -1,5 +1,8 @@
 package pl.polsl.moviecollectionmanagement.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +16,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity(name = "users")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class User extends BaseEntity {
 
     @Column(unique = true)
@@ -33,11 +39,12 @@ public class User extends BaseEntity {
     private Set<Role> roles = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<Topic> topics = new LinkedHashSet<>();;
+    private Set<Topic> topics = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<Answer> answers = new LinkedHashSet<>();;
+    private Set<Answer> answers = new LinkedHashSet<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    private Set<FavouriteMovie> favouriteMovies = new LinkedHashSet<>();;
+    private Set<FavouriteMovie> favouriteMovies = new LinkedHashSet<>();
 }

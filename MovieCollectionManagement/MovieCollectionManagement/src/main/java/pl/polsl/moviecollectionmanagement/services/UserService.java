@@ -11,6 +11,7 @@ import pl.polsl.moviecollectionmanagement.dtos.UserDto;
 import pl.polsl.moviecollectionmanagement.entities.Role;
 import pl.polsl.moviecollectionmanagement.entities.User;
 import pl.polsl.moviecollectionmanagement.enums.RoleName;
+import pl.polsl.moviecollectionmanagement.repositories.MovieRepository;
 import pl.polsl.moviecollectionmanagement.repositories.RoleRepository;
 import pl.polsl.moviecollectionmanagement.repositories.UserRepository;
 
@@ -24,8 +25,9 @@ import java.util.Set;
 @Slf4j
 public class UserService {
     private final UserRepository userRepo;
-
     private final RoleRepository roleRepository;
+
+    //private final MovieRepository movieRepository;
 
     public Page<UserDto> findAll(Pageable pageable) {
         final Page<User> users = userRepo.findAll(pageable);

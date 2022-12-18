@@ -1,6 +1,7 @@
 package pl.polsl.moviecollectionmanagement.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -11,7 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import pl.polsl.moviecollectionmanagement.dtos.UserDto;
 import pl.polsl.moviecollectionmanagement.services.UserService;
 
+import java.util.List;
+import java.util.Map;
+
 @RequiredArgsConstructor
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {

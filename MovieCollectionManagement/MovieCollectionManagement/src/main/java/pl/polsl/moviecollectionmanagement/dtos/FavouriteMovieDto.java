@@ -22,10 +22,13 @@ public class FavouriteMovieDto {
 
     private User user;
 
+    private Integer rating;
+
     public FavouriteMovieDto(FavouriteMovie favouriteMovie) {
         this.id = favouriteMovie.getId();
         this.isFavourite = favouriteMovie.getIsFavourite();
         this.movie = favouriteMovie.getMovie();
         this.user = favouriteMovie.getUser();
+        this.rating = favouriteMovie.getRating();
     }
 }

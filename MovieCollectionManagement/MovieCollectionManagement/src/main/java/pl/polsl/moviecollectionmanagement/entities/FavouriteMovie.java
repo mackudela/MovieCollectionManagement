@@ -25,13 +25,13 @@ public class FavouriteMovie extends BaseEntity{
     private Boolean isFavourite;
 
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "movie_id")
     @NotNull
     private Movie movie;
 
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;

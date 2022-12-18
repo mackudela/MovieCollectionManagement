@@ -58,7 +58,7 @@ public class Movie extends BaseEntity {
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private Set<Review> reviews = new LinkedHashSet<>();
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
     private Set<CastMember> castMembers = new LinkedHashSet<>();
 
 

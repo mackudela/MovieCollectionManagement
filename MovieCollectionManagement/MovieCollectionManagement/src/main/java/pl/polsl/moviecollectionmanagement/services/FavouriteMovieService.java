@@ -40,6 +40,7 @@ public class FavouriteMovieService {
 
         FavouriteMovie favouriteMovie = new FavouriteMovie();
         favouriteMovie.setIsFavourite(true);
+        favouriteMovie.setRating(0);
         favouriteMovie.setUser(user);
         favouriteMovie.setMovie(movie);
 
@@ -78,5 +79,18 @@ public class FavouriteMovieService {
             dtos.add(newDto);
         }
         return dtos;
+    }
+
+    @Transactional
+    public void deleteById(Long id) {
+        favouriteMovieRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void changeRating(Long id, Integer rating) {
+        FavouriteMovie favMovie = favouriteMovieRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("FavouriteMovie with id " + id + " does not exist"));
+        favMovie.setRating(rating);
+        favouriteMovieRepository.save(favMovie);
     }
 }

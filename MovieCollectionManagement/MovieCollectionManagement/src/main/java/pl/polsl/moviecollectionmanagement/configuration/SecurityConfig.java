@@ -27,7 +27,6 @@ import pl.polsl.moviecollectionmanagement.filters.CustomAuthorizationFilter;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //required as an interface between Authentication provider and JPA Services
     @Autowired
     protected UserDetailsService userDetailsService;
 
@@ -36,13 +35,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    //authentication
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
 
-    //authorization
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -54,8 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll()
                 .and();
-        http.csrf().disable();
         http.cors();
+        http.csrf().disable();
         http.addFilter(new CustomAuthenticationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

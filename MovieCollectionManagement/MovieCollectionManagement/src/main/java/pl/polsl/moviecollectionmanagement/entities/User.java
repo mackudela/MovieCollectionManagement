@@ -45,6 +45,10 @@ public class User extends BaseEntity {
     private Set<Answer> answers = new LinkedHashSet<>();
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<FavouriteMovie> favouriteMovies = new LinkedHashSet<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Review> reviews = new LinkedHashSet<>();
 }

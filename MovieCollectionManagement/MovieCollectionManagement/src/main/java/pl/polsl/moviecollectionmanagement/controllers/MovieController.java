@@ -9,7 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.moviecollectionmanagement.dtos.MovieDto;
 import pl.polsl.moviecollectionmanagement.dtos.UserDto;
+import pl.polsl.moviecollectionmanagement.entities.Review;
 import pl.polsl.moviecollectionmanagement.services.MovieService;
+import pl.polsl.moviecollectionmanagement.services.ReviewService;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,6 +22,7 @@ public class MovieController {
 
     private final MovieService movieService;
 
+    private final ReviewService reviewService;
 
     @GetMapping("/all")
     public ResponseEntity<Page<MovieDto>> findAllMovies(@PageableDefault Pageable pageable) {
@@ -27,9 +32,14 @@ public class MovieController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<MovieDto> findUserById(@PathVariable("id") Long id) {
+    public ResponseEntity<MovieDto> findMovieById(@PathVariable("id") Long id) {
         MovieDto movieDto = movieService.getDto(id);
         return new ResponseEntity<>(movieDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/reviews/{id}")
+    public ResponseEntity<List<Review>> findReviewsByMovieId(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(reviewService.findReviewsByMovie(id), HttpStatus.OK);
     }
 
 //    @PostMapping("/create") //simplified version

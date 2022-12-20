@@ -28,7 +28,7 @@ public class CastMember extends BaseEntity{
     private String castRole;
 
     @Getter(AccessLevel.PRIVATE)
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "cast_members_movies",
             joinColumns = @JoinColumn(name = "cast_member_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))

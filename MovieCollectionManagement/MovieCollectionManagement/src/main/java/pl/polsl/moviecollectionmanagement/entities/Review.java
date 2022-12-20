@@ -1,5 +1,6 @@
 package pl.polsl.moviecollectionmanagement.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,11 +17,13 @@ public class Review extends BaseEntity {
     @NotNull
     private String content;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "movie_id")
     @NotNull

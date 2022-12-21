@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Getter
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 public class Review extends BaseEntity {
 
     @NotNull
+    @Lob
     private String content;
 
     @JsonBackReference

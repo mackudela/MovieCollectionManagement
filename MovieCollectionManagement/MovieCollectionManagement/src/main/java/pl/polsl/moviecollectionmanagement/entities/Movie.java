@@ -56,7 +56,7 @@ public class Movie extends BaseEntity {
     private String movieLength;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Review> reviews = new LinkedHashSet<>();
 
     @ManyToMany(mappedBy = "movies")

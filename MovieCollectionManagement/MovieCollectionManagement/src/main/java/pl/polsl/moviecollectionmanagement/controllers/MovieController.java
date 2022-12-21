@@ -1,6 +1,7 @@
 package pl.polsl.moviecollectionmanagement.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -8,16 +9,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.moviecollectionmanagement.dtos.MovieDto;
+import pl.polsl.moviecollectionmanagement.dtos.ReviewDto;
 import pl.polsl.moviecollectionmanagement.dtos.UserDto;
+import pl.polsl.moviecollectionmanagement.entities.Movie;
 import pl.polsl.moviecollectionmanagement.entities.Review;
+import pl.polsl.moviecollectionmanagement.entities.User;
 import pl.polsl.moviecollectionmanagement.services.MovieService;
 import pl.polsl.moviecollectionmanagement.services.ReviewService;
+import pl.polsl.moviecollectionmanagement.services.UserService;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/movie")
+@Slf4j
 public class MovieController {
 
     private final MovieService movieService;
@@ -38,8 +44,13 @@ public class MovieController {
     }
 
     @GetMapping("/reviews/{id}")
-    public ResponseEntity<List<Review>> findReviewsByMovieId(@PathVariable("id") Long id) {
+    public ResponseEntity<List<ReviewDto>> findReviewsByMovieId(@PathVariable("id") Long id) {
         return new ResponseEntity<>(reviewService.findReviewsByMovie(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/review/create")
+    public ResponseEntity<Long> createReview(@RequestBody ReviewDto reviewDto) {
+        return new ResponseEntity<>(reviewService.createReview(reviewDto).getId(), HttpStatus.CREATED);
     }
 
 //    @PostMapping("/create") //simplified version

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.moviecollectionmanagement.dtos.MovieDto;
 import pl.polsl.moviecollectionmanagement.dtos.ReviewDto;
@@ -48,6 +49,7 @@ public class MovieController {
         return new ResponseEntity<>(reviewService.findReviewsByMovie(id), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('CREATE_REVIEW')")
     @PostMapping("/review/create")
     public ResponseEntity<Long> createReview(@RequestBody ReviewDto reviewDto) {
         return new ResponseEntity<>(reviewService.createReview(reviewDto).getId(), HttpStatus.CREATED);

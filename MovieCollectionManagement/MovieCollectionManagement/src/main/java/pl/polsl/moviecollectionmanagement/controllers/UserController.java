@@ -43,7 +43,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('FIND_USER')")
+//    @PreAuthorize("hasAuthority('FIND_USER')")
     @GetMapping("/find/{id}")
     public ResponseEntity<UserDto> findUserById(@PathVariable("id") Long id) {
         UserDto userDto = userService.getDto(id);

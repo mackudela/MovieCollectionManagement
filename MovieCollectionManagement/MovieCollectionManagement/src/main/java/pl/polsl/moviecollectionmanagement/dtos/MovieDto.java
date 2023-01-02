@@ -48,6 +48,8 @@ public class MovieDto {
 
     private Set<CastMember> castMembers;
 
+    private Set<Long> castIds;
+
     public MovieDto(Movie movie){
         this.id = movie.getId();
         this.title = movie.getTitle();

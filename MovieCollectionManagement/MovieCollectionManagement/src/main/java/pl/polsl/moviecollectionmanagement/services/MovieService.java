@@ -140,20 +140,34 @@ public class MovieService {
         castMemberRepo.saveAll(cast);
     }
 
-//    @Transactional
-//    public Movie create(MovieDto movieDto) {
-//        final Movie movie = new Movie();
-//        movie.setTitle(movieDto.getTitle());
-//        movie.setBoxOffice(movieDto.getBoxOffice());
-//        movie.setSeasonNumber(movieDto.getSeasonNumber());
-//        movie.setNumberOfEpisodes(movieDto.getNumberOfEpisodes());
-//        movie.setGenre(movieDto.getGenre());
-//        movie.setIsMovie(movieDto.getIsMovie());
-//        movie.setPosterUrl(movieDto.getPosterUrl());
-//        movie.setRating(movieDto.getRating());
-//
-//        return movieRepo.save(movie);
-//    }
+    @Transactional
+    public Movie createMovie(MovieDto movieDto) {
+        final Movie movie = new Movie();
+        movie.setTitle(movieDto.getTitle());
+        movie.setDescription(movie.getDescription());
+        movie.setBoxOffice(movieDto.getBoxOffice());
+        movie.setSeasonNumber(0);
+        movie.setNumberOfEpisodes(0);
+        movie.setGenre(movieDto.getGenre());
+        movie.setIsMovie(true);
+        movie.setPosterUrl(movieDto.getPosterUrl());
+        movie.setLargePosterUrl(movie.getLargePosterUrl());
+        movie.setRating(movieDto.getRating());
+        movie.setYearOfProduction(movieDto.getYearOfProduction());
+        movie.setMovieLength(movieDto.getMovieLength());
+
+        for(Long id : movieDto.getCastIds()) {
+            if(castMemberRepo.findById(id).isPresent()) {
+                CastMember castMember = castMemberRepo.findById(id)
+                        .orElseThrow(() -> new EntityNotFoundException("Cast member with id " + id + " does not exist"));
+
+                castMember.getMovies().add(movie);
+                movie.getCastMembers().add(castMember);
+            }
+        }
+
+        return movieRepo.save(movie);
+    }
 
 
 }

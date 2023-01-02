@@ -60,8 +60,9 @@ public class MovieController {
 //        return new ResponseEntity<>(movieService.create().getId(), HttpStatus.CREATED);
 //    }
 
-//    @PostMapping("/create")
-//    public ResponseEntity<Long> createMovie(@RequestBody MovieDto movieDto) {
-//        return new ResponseEntity<>(movieService.create(movieDto).getId(), HttpStatus.CREATED);
-//    }
+    @PreAuthorize("hasAuthority('CREATE_MOVIE')")
+    @PostMapping("/create")
+    public ResponseEntity<Long> createMovie(@RequestBody MovieDto movieDto) {
+        return new ResponseEntity<>(movieService.createMovie(movieDto).getId(), HttpStatus.CREATED);
+    }
 }

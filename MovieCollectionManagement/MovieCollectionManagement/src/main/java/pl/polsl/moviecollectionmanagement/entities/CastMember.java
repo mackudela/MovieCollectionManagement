@@ -1,5 +1,6 @@
 package pl.polsl.moviecollectionmanagement.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,7 +28,8 @@ public class CastMember extends BaseEntity{
     @Column(name = "cast_role")
     private String castRole;
 
-    @Getter(AccessLevel.PRIVATE)
+//    @Getter(AccessLevel.PRIVATE)
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "cast_members_movies",
             joinColumns = @JoinColumn(name = "cast_member_id", referencedColumnName = "id"),

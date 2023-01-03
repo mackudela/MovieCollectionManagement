@@ -55,4 +55,18 @@ public class ReviewService {
 
         return reviewRepository.save(review);
     }
+
+    public void deleteById(Long id) {
+        Review review = reviewRepository.findById(id)
+                        .orElseThrow();
+        Movie movie = movieRepository.findById(review.getMovie().getId())
+                        .orElseThrow();
+        User user = userRepository.findById(review.getUser().getId())
+                        .orElseThrow();
+
+        movie.getReviews().remove(review);
+        user.getReviews().remove(review);
+
+        reviewRepository.deleteById(id);
+    }
 }

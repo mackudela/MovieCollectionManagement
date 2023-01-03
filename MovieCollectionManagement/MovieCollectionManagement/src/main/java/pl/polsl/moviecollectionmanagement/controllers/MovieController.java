@@ -70,4 +70,12 @@ public class MovieController {
         log.info("Castids length: " + movieDto.getCastIds().size());
         return new ResponseEntity<>(movieService.createMovie(movieDto).getId(), HttpStatus.CREATED);
     }
+
+    @Transactional
+    @PreAuthorize("hasAuthority('DELETE_REVIEW')")
+    @DeleteMapping("/review/delete/{id}")
+    public ResponseEntity<?> deleteReview(@PathVariable("id") Long id){
+        reviewService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

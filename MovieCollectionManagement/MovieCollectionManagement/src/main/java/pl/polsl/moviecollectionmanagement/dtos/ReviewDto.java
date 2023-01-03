@@ -14,6 +14,8 @@ import pl.polsl.moviecollectionmanagement.entities.User;
 @NoArgsConstructor
 public class ReviewDto {
 
+    private Long id;
+
     private String content;
 
     private Long userId;
@@ -21,6 +23,7 @@ public class ReviewDto {
     private Long movieId;
 
     public ReviewDto(Review review) {
+        setId(review.getId());
         setContent(review.getContent());
         setUserId(review.getUser().getId());
         setMovieId(review.getMovie().getId());

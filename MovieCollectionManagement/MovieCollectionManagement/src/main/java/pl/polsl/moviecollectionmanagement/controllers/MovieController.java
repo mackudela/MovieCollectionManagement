@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.moviecollectionmanagement.dtos.MovieDto;
 import pl.polsl.moviecollectionmanagement.dtos.ReviewDto;
@@ -55,10 +56,13 @@ public class MovieController {
         return new ResponseEntity<>(reviewService.createReview(reviewDto).getId(), HttpStatus.CREATED);
     }
 
-//    @PostMapping("/create") //simplified version
-//    public ResponseEntity<Long> createMovie() {
-//        return new ResponseEntity<>(movieService.create().getId(), HttpStatus.CREATED);
-//    }
+    @Transactional
+    @PreAuthorize("hasAuthority('DELETE_MOVIE')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id){
+        movieService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PreAuthorize("hasAuthority('CREATE_MOVIE')")
     @PostMapping("/create")

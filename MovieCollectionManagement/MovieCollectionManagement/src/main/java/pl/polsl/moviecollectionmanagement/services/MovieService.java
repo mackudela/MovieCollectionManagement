@@ -15,6 +15,7 @@ import pl.polsl.moviecollectionmanagement.repositories.MovieRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -171,5 +172,17 @@ public class MovieService {
         return movieRepo.save(movie);
     }
 
-
+    @Transactional
+    public void deleteById(Long id) {
+        Movie movie = movieRepo.findById(id)
+                        .orElseThrow();
+        Set<CastMember> cast = movie.getCastMembers();
+        for (CastMember member : cast) {
+            CastMember mem = castMemberRepo.findById(member.getId())
+                    .orElseThrow();
+            mem.getMovies().remove(movie);
+        }
+        movie.getCastMembers().removeAll(movie.getCastMembers());
+        movieRepo.delete(movie);
+    }
 }

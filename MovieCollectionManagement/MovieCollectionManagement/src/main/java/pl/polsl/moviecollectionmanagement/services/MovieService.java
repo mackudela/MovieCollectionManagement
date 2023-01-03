@@ -27,8 +27,12 @@ public class MovieService {
     private final CastMemberRepository castMemberRepo;
 
     public Page<MovieDto> findAll(Pageable pageable) {
-        final Page<Movie> movies = movieRepo.findAll(pageable);
-        return movies.map(MovieDto::new);
+        if(movieRepo.findAllMovies(pageable).isPresent()){
+            final Page<Movie> movies = movieRepo.findAllMovies(pageable).orElseThrow();
+            return movies.map(MovieDto::new);
+        }
+        log.info("Not good");
+        return null;
     }
 
     public Movie findById(Long id) {
@@ -173,6 +177,34 @@ public class MovieService {
     }
 
     @Transactional
+    public Movie createTvShow(MovieDto movieDto) {
+        final Movie movie = new Movie();
+        movie.setTitle(movieDto.getTitle());
+        movie.setDescription(movieDto.getDescription());
+        movie.setBoxOffice(0f);
+        movie.setSeasonNumber(movieDto.getSeasonNumber());
+        movie.setNumberOfEpisodes(0);
+        movie.setGenre(movieDto.getGenre());
+        movie.setIsMovie(false);
+        movie.setPosterUrl(movieDto.getPosterUrl());
+        movie.setLargePosterUrl(movieDto.getLargePosterUrl());
+        movie.setRating(movieDto.getRating());
+        movie.setYearOfProduction(movieDto.getYearOfProduction());
+        movie.setMovieLength("");
+        for(Long id : movieDto.getCastIds()) {
+            if(castMemberRepo.findById(id).isPresent()) {
+                CastMember castMember = castMemberRepo.findById(id)
+                        .orElseThrow(() -> new EntityNotFoundException("Cast member with id " + id + " does not exist"));
+
+                castMember.getMovies().add(movie);
+                movie.getCastMembers().add(castMember);
+            }
+        }
+
+        return movieRepo.save(movie);
+    }
+
+    @Transactional
     public void deleteById(Long id) {
         Movie movie = movieRepo.findById(id)
                         .orElseThrow();
@@ -184,5 +216,13 @@ public class MovieService {
         }
         movie.getCastMembers().removeAll(movie.getCastMembers());
         movieRepo.delete(movie);
+    }
+
+    public Page<MovieDto> findAllShows(Pageable pageable) {
+        if(movieRepo.findAllShows(pageable).isPresent()){
+            final Page<Movie> movies = movieRepo.findAllShows(pageable).orElseThrow();
+            return movies.map(MovieDto::new);
+        }
+        return null;
     }
 }

@@ -39,6 +39,13 @@ public class MovieController {
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
+    @GetMapping("/all-shows")
+    public ResponseEntity<Page<MovieDto>> findAllShows(@PageableDefault Pageable pageable) {
+        Pageable wholePage = Pageable.unpaged();
+        Page<MovieDto> movies = movieService.findAllShows(wholePage);
+        return new ResponseEntity<>(movies, HttpStatus.OK);
+    }
+
     @GetMapping("/find/{id}")
     public ResponseEntity<MovieDto> findMovieById(@PathVariable("id") Long id) {
         MovieDto movieDto = movieService.getDto(id);
@@ -67,8 +74,13 @@ public class MovieController {
     @PreAuthorize("hasAuthority('CREATE_MOVIE')")
     @PostMapping("/create")
     public ResponseEntity<Long> createMovie(@RequestBody MovieDto movieDto) {
-        log.info("Castids length: " + movieDto.getCastIds().size());
         return new ResponseEntity<>(movieService.createMovie(movieDto).getId(), HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasAuthority('CREATE_MOVIE')")
+    @PostMapping("/create-show")
+    public ResponseEntity<Long> createTvShow(@RequestBody MovieDto movieDto) {
+        return new ResponseEntity<>(movieService.createTvShow(movieDto).getId(), HttpStatus.CREATED);
     }
 
     @Transactional

@@ -16,13 +16,13 @@ public class Review extends BaseEntity {
     @Column(columnDefinition="TEXT", length=2048)
     private String content;
 
-    @JsonBackReference
+    @JsonBackReference("User-Review")
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;
 
-    @JsonBackReference
+    @JsonBackReference("Movie-Review")
     @ManyToOne
     @JoinColumn(name = "movie_id")
     @NotNull

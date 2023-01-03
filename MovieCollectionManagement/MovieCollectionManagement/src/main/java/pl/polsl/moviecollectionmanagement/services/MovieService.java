@@ -115,47 +115,49 @@ public class MovieService {
 //        return movieRepo.save(movie);
 //    }
 
-    @Transactional
-    public void addCast() {
-        ArrayList<CastMember> cast = new ArrayList<>();
-
-        CastMember castMember = new CastMember();
-        castMember.setFirstName("Tim");
-        castMember.setLastName("Robins");
-
-        cast.add(castMember);
-
-        CastMember castMember2 = new CastMember();
-        castMember2.setFirstName("Morgan");
-        castMember2.setLastName("Freeman");
-
-        cast.add(castMember2);
-
-        CastMember castMember3 = new CastMember();
-        castMember3.setFirstName("Bob");
-        castMember3.setLastName("Gunton");
-
-        cast.add(castMember3);
-
-        castMemberRepo.saveAll(cast);
-    }
+//    @Transactional
+//    public void addCast() {
+//        ArrayList<CastMember> cast = new ArrayList<>();
+//
+//        CastMember castMember = new CastMember();
+//        castMember.setFirstName("Tim");
+//        castMember.setLastName("Robins");
+//
+//        cast.add(castMember);
+//
+//        CastMember castMember2 = new CastMember();
+//        castMember2.setFirstName("Morgan");
+//        castMember2.setLastName("Freeman");
+//
+//        cast.add(castMember2);
+//
+//        CastMember castMember3 = new CastMember();
+//        castMember3.setFirstName("Bob");
+//        castMember3.setLastName("Gunton");
+//
+//        cast.add(castMember3);
+//
+//        castMemberRepo.saveAll(cast);
+//    }
 
     @Transactional
     public Movie createMovie(MovieDto movieDto) {
         final Movie movie = new Movie();
         movie.setTitle(movieDto.getTitle());
-        movie.setDescription(movie.getDescription());
+        movie.setDescription(movieDto.getDescription());
+        log.info(movieDto.getDescription());
         movie.setBoxOffice(movieDto.getBoxOffice());
         movie.setSeasonNumber(0);
         movie.setNumberOfEpisodes(0);
         movie.setGenre(movieDto.getGenre());
         movie.setIsMovie(true);
         movie.setPosterUrl(movieDto.getPosterUrl());
-        movie.setLargePosterUrl(movie.getLargePosterUrl());
+        movie.setLargePosterUrl(movieDto.getLargePosterUrl());
+        log.info(movie.getLargePosterUrl());
         movie.setRating(movieDto.getRating());
         movie.setYearOfProduction(movieDto.getYearOfProduction());
         movie.setMovieLength(movieDto.getMovieLength());
-
+        log.info("Castids length: " + movieDto.getCastIds().size());
         for(Long id : movieDto.getCastIds()) {
             if(castMemberRepo.findById(id).isPresent()) {
                 CastMember castMember = castMemberRepo.findById(id)

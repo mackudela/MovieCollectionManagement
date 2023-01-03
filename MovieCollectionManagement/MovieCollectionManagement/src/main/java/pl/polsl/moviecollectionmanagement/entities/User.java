@@ -38,19 +38,19 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new LinkedHashSet<>();
 
-    @JsonManagedReference
+    @JsonManagedReference("User-Topic")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Topic> topics = new LinkedHashSet<>();
 
-    @JsonManagedReference
+    @JsonManagedReference("User-Answer")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Answer> answers = new LinkedHashSet<>();
 
-    @JsonManagedReference
+    @JsonManagedReference("User-FavouriteMovie")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<FavouriteMovie> favouriteMovies = new LinkedHashSet<>();
 
-    @JsonManagedReference
+    @JsonManagedReference("User-Review")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Review> reviews = new LinkedHashSet<>();
 }

@@ -28,10 +28,10 @@ public class Topic extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
-    @JsonBackReference
+    @JsonBackReference("User-Topic")
     private User user;
 
-    @JsonManagedReference
+    @JsonManagedReference("Topic-Answer")
     @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)
     private Set<Answer> answers = new LinkedHashSet<>();
 }

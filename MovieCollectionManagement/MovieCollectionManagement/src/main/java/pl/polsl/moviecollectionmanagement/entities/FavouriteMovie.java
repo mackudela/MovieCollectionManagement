@@ -24,13 +24,13 @@ public class FavouriteMovie extends BaseEntity{
     @Column(name = "is_favourite")
     private Boolean isFavourite;
 
-    @JsonBackReference
+    @JsonBackReference("Movie-FavouriteMovie")
     @ManyToOne()
     @JoinColumn(name = "movie_id")
     @NotNull
     private Movie movie;
 
-    @JsonBackReference
+    @JsonBackReference("User-FavouriteMovie")
     @ManyToOne()
     @JoinColumn(name = "user_id")
     @NotNull

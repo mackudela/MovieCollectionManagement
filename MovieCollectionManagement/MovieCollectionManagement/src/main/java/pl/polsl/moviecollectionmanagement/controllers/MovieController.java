@@ -63,6 +63,7 @@ public class MovieController {
     @PreAuthorize("hasAuthority('CREATE_MOVIE')")
     @PostMapping("/create")
     public ResponseEntity<Long> createMovie(@RequestBody MovieDto movieDto) {
+        log.info("Castids length: " + movieDto.getCastIds().size());
         return new ResponseEntity<>(movieService.createMovie(movieDto).getId(), HttpStatus.CREATED);
     }
 }

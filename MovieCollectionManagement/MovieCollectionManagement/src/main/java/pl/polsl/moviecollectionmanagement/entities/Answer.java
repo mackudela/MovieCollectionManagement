@@ -24,12 +24,12 @@ public class Answer extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
-    @JsonBackReference
+    @JsonBackReference("User-Answer")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "topic_id")
     @NotNull
-    @JsonBackReference
+    @JsonBackReference("Topic-Answer")
     private Topic topic;
 }

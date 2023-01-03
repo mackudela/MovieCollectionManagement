@@ -55,7 +55,7 @@ public class Movie extends BaseEntity {
     @Column(name = "movie_length")
     private String movieLength;
 
-    @JsonManagedReference
+    @JsonManagedReference("Movie-Review")
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Review> reviews = new LinkedHashSet<>();
 
@@ -63,7 +63,7 @@ public class Movie extends BaseEntity {
     private Set<CastMember> castMembers = new LinkedHashSet<>();
 
 
-    @JsonManagedReference
+    @JsonManagedReference("Movie-FavouriteMovie")
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private Set<FavouriteMovie> favouriteMovies = new LinkedHashSet<>();
 }

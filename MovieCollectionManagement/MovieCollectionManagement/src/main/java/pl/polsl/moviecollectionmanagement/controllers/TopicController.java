@@ -39,4 +39,12 @@ public class TopicController {
     public ResponseEntity<Long> createTopic(@RequestBody TopicDto topicDto) {
         return new ResponseEntity<>(topicService.createTopic(topicDto).getId(), HttpStatus.CREATED);
     }
+
+    @Transactional
+    @PreAuthorize("hasAuthority('DELETE_FORUMPOST')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteTopic(@PathVariable("id") Long id){
+        topicService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

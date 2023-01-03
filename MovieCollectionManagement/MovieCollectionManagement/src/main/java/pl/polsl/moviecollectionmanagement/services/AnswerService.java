@@ -58,4 +58,8 @@ public class AnswerService {
 
         return answerRepository.save(answer);
     }
+
+    public void deleteById(Long id) {
+        answerRepository.deleteById(id);
+    }
 }

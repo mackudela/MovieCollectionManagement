@@ -33,4 +33,12 @@ public class AnswerController {
     public ResponseEntity<Long> createAnswer(@RequestBody AnswerDto answerDto) {
         return new ResponseEntity<>(answerService.createAnswer(answerDto).getId(), HttpStatus.CREATED);
     }
+
+    @Transactional
+    @PreAuthorize("hasAuthority('DELETE_FORUMPOST')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteAnswer(@PathVariable("id") Long id){
+        answerService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

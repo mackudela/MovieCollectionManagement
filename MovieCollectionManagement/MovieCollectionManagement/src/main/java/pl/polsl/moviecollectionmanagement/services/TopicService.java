@@ -57,4 +57,8 @@ public class TopicService {
         return dto;
 
     }
+
+    public void deleteById(Long id) {
+        topicRepository.deleteById(id);
+    }
 }

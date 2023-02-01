@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import pl.polsl.moviecollectionmanagement.entities.FavouriteMovie;
-import pl.polsl.moviecollectionmanagement.entities.Movie;
 
 import java.util.List;
 

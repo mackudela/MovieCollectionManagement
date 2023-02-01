@@ -1,12 +1,9 @@
 package pl.polsl.moviecollectionmanagement.services;
 
-import com.fasterxml.jackson.annotation.JacksonInject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.moviecollectionmanagement.dtos.AnswerDto;
-import pl.polsl.moviecollectionmanagement.dtos.TopicDto;
 import pl.polsl.moviecollectionmanagement.entities.Answer;
 import pl.polsl.moviecollectionmanagement.entities.Topic;
 import pl.polsl.moviecollectionmanagement.entities.User;

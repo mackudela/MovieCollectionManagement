@@ -8,9 +8,7 @@ import lombok.Setter;
 import pl.polsl.moviecollectionmanagement.enums.RoleName;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter

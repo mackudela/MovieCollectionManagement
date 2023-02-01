@@ -3,7 +3,6 @@ package pl.polsl.moviecollectionmanagement.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.moviecollectionmanagement.dtos.FavouriteMovieDto;
@@ -17,7 +16,6 @@ import pl.polsl.moviecollectionmanagement.repositories.UserRepository;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)

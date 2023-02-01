@@ -5,12 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.moviecollectionmanagement.dtos.FavouriteMovieDto;
-import pl.polsl.moviecollectionmanagement.entities.FavouriteMovie;
 import pl.polsl.moviecollectionmanagement.services.FavouriteMovieService;
 
 import java.util.List;
@@ -27,9 +25,7 @@ public class FavouriteMovieController {
 
     @Transactional(readOnly = false)
     @PostMapping("/create")
-    public ResponseEntity<Long> createFavouriteMovie(@RequestBody Map<String, String> json) { //String login, @RequestBody Long movieId
-        log.info(json.get("login"));
-        log.info(json.get("movieId"));
+    public ResponseEntity<Long> createFavouriteMovie(@RequestBody Map<String, String> json) {
         return new ResponseEntity<>(favouriteMovieService.addFavouriteMovie(json.get("login"), Long.parseLong(json.get("movieId"))).getId(), HttpStatus.CREATED);
     }
 
@@ -59,10 +55,6 @@ public class FavouriteMovieController {
     @Transactional
     @PatchMapping("/rating/change")
     public ResponseEntity<?> changeRating(@RequestBody Map<String, String> json){
-//        log.info(json.get("favMovieId"));
-//        log.info(json.get("rating"));
-//        changeRating(Long.parseLong(json.get("favMovieId")), Integer.parseInt(json.get("rating")));
-//        (@RequestBody Map<String, String> json)
         favouriteMovieService.changeRating(Long.parseLong(json.get("favMovieId")), Integer.parseInt(json.get("rating")));
         return new ResponseEntity<>(HttpStatus.OK);
     }

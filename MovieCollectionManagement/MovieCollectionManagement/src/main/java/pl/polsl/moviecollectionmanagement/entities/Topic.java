@@ -5,12 +5,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import pl.polsl.moviecollectionmanagement.dtos.TopicDto;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter

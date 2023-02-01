@@ -12,13 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.moviecollectionmanagement.dtos.MovieDto;
 import pl.polsl.moviecollectionmanagement.dtos.ReviewDto;
-import pl.polsl.moviecollectionmanagement.dtos.UserDto;
-import pl.polsl.moviecollectionmanagement.entities.Movie;
-import pl.polsl.moviecollectionmanagement.entities.Review;
-import pl.polsl.moviecollectionmanagement.entities.User;
 import pl.polsl.moviecollectionmanagement.services.MovieService;
 import pl.polsl.moviecollectionmanagement.services.ReviewService;
-import pl.polsl.moviecollectionmanagement.services.UserService;
 
 import java.util.List;
 

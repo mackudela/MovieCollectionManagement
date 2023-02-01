@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.polsl.moviecollectionmanagement.entities.Movie;
 import pl.polsl.moviecollectionmanagement.entities.Review;
-import pl.polsl.moviecollectionmanagement.entities.User;
 
 @Getter
 @Setter

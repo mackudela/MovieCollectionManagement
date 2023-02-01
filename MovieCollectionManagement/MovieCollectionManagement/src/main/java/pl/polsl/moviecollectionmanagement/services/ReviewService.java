@@ -40,8 +40,6 @@ public class ReviewService {
 
     @Transactional
     public Review createReview(ReviewDto reviewDto) {
-//        log.info(Long.toString(reviewDto.getUserId()));
-//        log.info(Long.toString(reviewDto.getMovieId()));
         User user = userRepository.findById(reviewDto.getUserId()).orElseThrow();
         Movie movie = movieRepository.findById(reviewDto.getMovieId()).orElseThrow();
 

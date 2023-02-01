@@ -11,7 +11,6 @@ import pl.polsl.moviecollectionmanagement.dtos.UserDto;
 import pl.polsl.moviecollectionmanagement.entities.Role;
 import pl.polsl.moviecollectionmanagement.entities.User;
 import pl.polsl.moviecollectionmanagement.enums.RoleName;
-import pl.polsl.moviecollectionmanagement.repositories.MovieRepository;
 import pl.polsl.moviecollectionmanagement.repositories.RoleRepository;
 import pl.polsl.moviecollectionmanagement.repositories.UserRepository;
 
@@ -27,8 +26,6 @@ public class UserService {
     private final UserRepository userRepo;
     private final RoleRepository roleRepository;
 
-    //private final MovieRepository movieRepository;
-
     public Page<UserDto> findAll(Pageable pageable) {
         final Page<User> users = userRepo.findAll(pageable);
         return users.map(UserDto::new);
@@ -38,10 +35,6 @@ public class UserService {
         return userRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " does not exist"));
     }
-
-//    public User findByLogin(String login) {
-//        return userRepo.findUserByLogin(login);
-//    }
 
     public UserDto getDto(Long id) {
         final User user = findById(id);
@@ -60,10 +53,6 @@ public class UserService {
         Role role = roleRepository.findByName(RoleName.USER);
         role.getUsers().add(user);
         roles.add(role);
-
-//        Role role2 = roleRepository.findByName(RoleName.ADMIN);
-//        role2.getUsers().add(user);
-//        roles.add(role2);
 
         user.setRoles(roles);
         return userRepo.save(user);

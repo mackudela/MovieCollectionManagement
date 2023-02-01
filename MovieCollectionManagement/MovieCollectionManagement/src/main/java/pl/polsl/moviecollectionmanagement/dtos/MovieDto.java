@@ -7,9 +7,7 @@ import lombok.Setter;
 import pl.polsl.moviecollectionmanagement.entities.CastMember;
 import pl.polsl.moviecollectionmanagement.entities.Movie;
 import pl.polsl.moviecollectionmanagement.entities.Review;
-import pl.polsl.moviecollectionmanagement.entities.User;
 
-import java.util.List;
 import java.util.Set;
 
 @Getter

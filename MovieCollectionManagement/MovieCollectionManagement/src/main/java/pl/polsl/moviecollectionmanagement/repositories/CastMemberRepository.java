@@ -6,7 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.polsl.moviecollectionmanagement.entities.CastMember;
-import pl.polsl.moviecollectionmanagement.entities.FavouriteMovie;
 
 import java.util.Optional;
 

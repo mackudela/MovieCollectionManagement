@@ -8,8 +8,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.moviecollectionmanagement.dtos.AnswerDto;
-import pl.polsl.moviecollectionmanagement.dtos.ReviewDto;
-import pl.polsl.moviecollectionmanagement.dtos.TopicDto;
 import pl.polsl.moviecollectionmanagement.services.AnswerService;
 
 import java.util.List;

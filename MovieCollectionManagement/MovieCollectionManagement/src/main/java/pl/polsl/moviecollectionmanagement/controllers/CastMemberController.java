@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.polsl.moviecollectionmanagement.dtos.CastMemberDto;
 import pl.polsl.moviecollectionmanagement.services.CastMemberService;
 
-import java.util.List;
-import java.util.Map;
-
 @RequiredArgsConstructor
 @RestController
 @Slf4j
